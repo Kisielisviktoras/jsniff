@@ -40,5 +40,6 @@ public class DesktopApplication4 extends SingleFrameApplication {
      */
     public static void main(String[] args) {
         launch(DesktopApplication4.class, args);
+        System.out.println("Teste.");
     }
 }
