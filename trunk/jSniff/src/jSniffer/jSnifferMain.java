@@ -1,8 +1,8 @@
 /*
- * DesktopApplication4.java
+ * jSnifferMain.java
  */
 
-package desktopapplication4;
+package jSniffer;
 
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
@@ -10,13 +10,13 @@ import org.jdesktop.application.SingleFrameApplication;
 /**
  * The main class of the application.
  */
-public class DesktopApplication4 extends SingleFrameApplication {
+public class jSnifferMain extends SingleFrameApplication {
 
     /**
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
-        show(new DesktopApplication4View(this));
+        show(new jSnifferMainWindow(this));
     }
 
     /**
@@ -29,17 +29,17 @@ public class DesktopApplication4 extends SingleFrameApplication {
 
     /**
      * A convenient static getter for the application instance.
-     * @return the instance of DesktopApplication4
+     * @return the instance of jSnifferMain
      */
-    public static DesktopApplication4 getApplication() {
-        return Application.getInstance(DesktopApplication4.class);
+    public static jSnifferMain getApplication() {
+        return Application.getInstance(jSnifferMain.class);
     }
 
     /**
      * Main method launching the application.
      */
     public static void main(String[] args) {
-        launch(DesktopApplication4.class, args);
+        launch(jSnifferMain.class, args);
         System.out.println("Teste.");
     }
 }
