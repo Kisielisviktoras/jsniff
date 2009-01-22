@@ -40,6 +40,5 @@ public class jSnifferMain extends SingleFrameApplication {
      */
     public static void main(String[] args) {
         launch(jSnifferMain.class, args);
-        System.out.println("Teste.");
     }
 }
