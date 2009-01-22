@@ -1,8 +1,8 @@
 /*
- * DesktopApplication4View.java
+ * jSnifferMainWindow.java
  */
 
-package desktopapplication4;
+package jSniffer;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
@@ -19,9 +19,9 @@ import javax.swing.JFrame;
 /**
  * The application's main frame.
  */
-public class DesktopApplication4View extends FrameView {
+public class jSnifferMainWindow extends FrameView {
 
-    public DesktopApplication4View(SingleFrameApplication app) {
+    public jSnifferMainWindow(SingleFrameApplication app) {
         super(app);
 
         initComponents();
@@ -84,11 +84,11 @@ public class DesktopApplication4View extends FrameView {
     @Action
     public void showAboutBox() {
         if (aboutBox == null) {
-            JFrame mainFrame = DesktopApplication4.getApplication().getMainFrame();
-            aboutBox = new DesktopApplication4AboutBox(mainFrame);
+            JFrame mainFrame = jSnifferMain.getApplication().getMainFrame();
+            aboutBox = new jSnifferAboutBox(mainFrame);
             aboutBox.setLocationRelativeTo(mainFrame);
         }
-        DesktopApplication4.getApplication().show(aboutBox);
+        jSnifferMain.getApplication().show(aboutBox);
     }
 
     /** This method is called from within the constructor to
@@ -127,11 +127,11 @@ public class DesktopApplication4View extends FrameView {
 
         menuBar.setName("menuBar"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(desktopapplication4.DesktopApplication4.class).getContext().getResourceMap(DesktopApplication4View.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(jSniffer.jSnifferMain.class).getContext().getResourceMap(jSnifferMainWindow.class);
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(desktopapplication4.DesktopApplication4.class).getContext().getActionMap(DesktopApplication4View.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(jSniffer.jSnifferMain.class).getContext().getActionMap(jSnifferMainWindow.class, this);
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
         fileMenu.add(exitMenuItem);

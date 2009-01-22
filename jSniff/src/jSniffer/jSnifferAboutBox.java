@@ -1,14 +1,14 @@
 /*
- * DesktopApplication4AboutBox.java
+ * jSnifferAboutBox.java
  */
 
-package desktopapplication4;
+package jSniffer;
 
 import org.jdesktop.application.Action;
 
-public class DesktopApplication4AboutBox extends javax.swing.JDialog {
+public class jSnifferAboutBox extends javax.swing.JDialog {
 
-    public DesktopApplication4AboutBox(java.awt.Frame parent) {
+    public jSnifferAboutBox(java.awt.Frame parent) {
         super(parent);
         initComponents();
         getRootPane().setDefaultButton(closeButton);
@@ -38,13 +38,13 @@ public class DesktopApplication4AboutBox extends javax.swing.JDialog {
         javax.swing.JLabel imageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(desktopapplication4.DesktopApplication4.class).getContext().getResourceMap(DesktopApplication4AboutBox.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(jSniffer.jSnifferMain.class).getContext().getResourceMap(jSnifferAboutBox.class);
         setTitle(resourceMap.getString("title")); // NOI18N
         setModal(true);
         setName("aboutBox"); // NOI18N
         setResizable(false);
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(desktopapplication4.DesktopApplication4.class).getContext().getActionMap(DesktopApplication4AboutBox.class, this);
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(jSniffer.jSnifferMain.class).getContext().getActionMap(jSnifferAboutBox.class, this);
         closeButton.setAction(actionMap.get("closeAboutBox")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 
