@@ -4,6 +4,9 @@
 
 package jSniffer;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -11,6 +14,7 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -23,10 +27,16 @@ import jpcap.packet.Packet;
  */
 public class jSnifferMainWindow extends FrameView {
 
+
+    private NetworkInterface[] lista;
+
     public jSnifferMainWindow(SingleFrameApplication app) {
         super(app);
 
         initComponents();
+
+
+        this.refreshComboBoxInterfaces();
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -106,6 +116,8 @@ public class jSnifferMainWindow extends FrameView {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jComboBox_interfaces = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -135,28 +147,40 @@ public class jSnifferMainWindow extends FrameView {
         jTextArea1.setName("jTextArea1"); // NOI18N
         jScrollPane1.setViewportView(jTextArea1);
 
+        jComboBox_interfaces.setName("jComboBox_interfaces"); // NOI18N
+
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
         org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(mainPanelLayout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap()
                 .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, mainPanelLayout.createSequentialGroup()
+                    .add(mainPanelLayout.createSequentialGroup()
+                        .add(jLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jComboBox_interfaces, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 79, Short.MAX_VALUE)
                         .add(jButton1)
-                        .add(117, 117, 117))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .add(88, 88, 88))
+                    .add(mainPanelLayout.createSequentialGroup()
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(75, 75, 75))))
+                        .addContainerGap(136, Short.MAX_VALUE))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(mainPanelLayout.createSequentialGroup()
                 .add(25, 25, 25)
-                .add(jButton1)
-                .add(18, 18, 18)
+                .add(mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton1)
+                    .add(jComboBox_interfaces, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel1))
+                .add(34, 34, 34)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -223,19 +247,47 @@ public class jSnifferMainWindow extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
 
-        NetworkInterface[] n = jpcap.JpcapCaptor.getDeviceList();
 
-        String aux;
 
-        aux = "Nome: "+n[0].name;
+            JpcapCaptor captor = jpcap.JpcapCaptor.openDevice(lista[this.jComboBox_interfaces.getSelectedIndex()], 5000, true, 1000);
 
-        this.jTextArea1.setText(aux);
+            while(true){
+                Packet p = captor.getPacket();
+                
+
+                System.out.println(p.header);
+
+                }
+
+
+        } catch (Exception ex) {
+            System.out.println("Não foi possivel abrir a interface.\n"+ex.toString());
+        }
 
     }//GEN-LAST:event_jButton1MouseClicked
 
+
+    private void refreshComboBoxInterfaces(){
+
+        lista = jpcap.JpcapCaptor.getDeviceList();
+        int n = lista.length;
+        int i;
+        DefaultComboBoxModel cbm = (DefaultComboBoxModel) this.jComboBox_interfaces.getModel();
+
+
+        for(i=0; i<n; i++){
+
+            cbm.addElement(lista[i].name);
+
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox_interfaces;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainPanel;
